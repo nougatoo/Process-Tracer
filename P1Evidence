@@ -1,0 +1,77 @@
+Script started on Thu 16 Oct 2014 03:10:23 PM MDT
+[?1034hbash-4.1$ make
+gcc -Wall -g itrace.c -o itrace -ludis86
+bash-4.1$ ps aux : [K[K| grep yes
+cpsc      3732 20.3  0.0   4068   484 pts/1    S+   15:10   0:00 yes
+cpsc      3734  0.0  0.0   4356   720 pts/2    S+   15:10   0:00 grep yes
+bash-4.1$ ./itrace -p 3732
+itrace is now attempting to trace the process: 3732
+Attaching to the tracee has been succesful	ret
+	pop ebx
+	cmp eax, 0xfffff001
+	jae 0x34
+	ret
+	mov edx, [ebp-0x14]
+	test eax, eax
+	jns 0xffffffd7
+	sub esi, eax
+	test esi, esi
+	jle 0x5c
+	mov eax, [ebp+0x10]
+	sub eax, esi
+	jmp 0xffffffce
+	mov edi, [edx+0x50]
+	mov esi, [edx+0x4c]
+	test edi, edi
+	mov [ebp-0x10], esi
+	mov [ebp-0xc], edi
+	js 0x15
+	add esp, 0x18
+	pop esi
+	pop edi
+	pop ebp
+	ret
+	mov edx, eax
+	movzx eax, word [esi+0x44]
+	test edx, edx
+	jnz 0x48
+	test ax, ax
+	jz 0xffffffb7
+	mov ecx, [esi+0x68]
+	mov eax, [esi+0x1c]
+	test ecx, ecx
+	mov [esi+0xc], eax
+	mov [esi+0x4], eax
+^C
+itrace and traced program killed
+bash-4.1$ pus[K[Ks aux | grep test
+cpsc      2041  0.2  0.0     96    12 pts/1    T    13:57   0:10 ./test
+cpsc      3736 81.0  0.0     96    12 pts/1    R+   15:11   0:02 ./test
+cpsc      3738  0.0  0.0   4356   720 pts/2    S+   15:11   0:00 grep test
+bash-4.1$ ./itrace -c [K[Kp 3736
+itrace is now attempting to trace the process: 3736
+Attaching to the tracee has been succesful	nop
+	mov eax, eax
+	mov eax, eax
+	mov eax, eax
+	mov eax, eax
+	mov eax, eax
+	nop
+	jmp 0xfffffff1
+	xor eax, eax
+	inc eax
+	nop
+	mov eax, eax
+	mov eax, eax
+	mov eax, eax
+	mov eax, eax
+	mov eax, eax
+	nop
+	jmp 0xfffffff1
+	xor eax, eax
+^C
+itrace and traced program killed
+bash-4.1$ exit
+exit
+
+Script done on Thu 16 Oct 2014 03:12:23 PM MDT
